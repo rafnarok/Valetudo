@@ -13,11 +13,11 @@ export class FourColorTheoremSolver {
      * @param {number} pixelSize - Used to calculate the resolution of the theorem. Assumes a robot diameter of 30cm and calculates the minimum size of a room.
      */
     constructor(layers, pixelSize) {
-        /**
-         * @param {number} resolution - Minimal resolution of the map scanner in pixels. Any number higher than one will lead to this many pixels being skipped when finding segment boundaries.
-         * For example: If the robot measures 30cm in length/width, this should be set to 6, as no room can be smaller than 6 pixels. This of course implies that a pixel represents 5cm in the real world.
-         */
-        const resolution = Math.floor(30 / pixelSize);
+    /**
+     * @param {number} resolution - Minimal resolution of the map scanner in pixels. Any number higher than one will lead to this many pixels being skipped when finding segment boundaries.
+     * For example: If the robot measures 30cm in length/width, this should be set to 6, as no room can be smaller than 6 pixels. This of course implies that a pixel represents 5cm in the real world.
+     */
+        const resolution = Math.floor(2 / pixelSize);
         this.stepFunction = function (c) {
             return c + resolution;
         };
@@ -136,7 +136,7 @@ export class FourColorTheoremSolver {
     }
 
     traverseMap(boundaries, pixelData, func) {
-        // row-first traversal
+    // row-first traversal
         for (
             let y = boundaries.minY;
             y <= boundaries.maxY;
