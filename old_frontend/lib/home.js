@@ -201,7 +201,18 @@ async function handleZonesStartButton() {
 
     if (zoneIds.length > 0) {
         try {
-            await ApiService.startCleaningZonesById(zoneIds);
+             var availableZones = ApiService.getZonesOpenAPI();
+             var zonesToClean = [];
+             for ( var zone in availableZones ){
+                 for ( var zoneId in zoneIds ){
+                     if ( zone === zoneIds[zoneId] ){
+                         for (var z in availableZones[zone].zones ){
+                             zonesToClean.push( availableZones[zone].zones[z] );
+                         }
+                     }
+                 }
+             }
+             await ApiService.startCleaningZoneByCoords(zonesToClean);
         } catch (err) {
             ons.notification.toast(err.message,
                 {buttonLabel: "Dismiss", timeout: 1500});
